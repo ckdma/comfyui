@@ -6,7 +6,7 @@
 
 # Packages are installed after nodes so we can fix them...
 
-DEFAULT_WORKFLOW="https://raw.githubusercontent.com/ai-dock/comfyui/main/config/workflows/flux-comfyui-example.json"
+DEFAULT_WORKFLOW=""
 
 APT_PACKAGES=(
     #"package-1"
@@ -27,6 +27,7 @@ CHECKPOINT_MODELS=(
 
 CLIP_MODELS=(
     "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors"
+    "https://huggingface.co/Aitrepreneur/FLX/resolve/main/t5xxl_fp8_e4m3fn.safetensors"
     "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors"
 )
 
@@ -59,10 +60,10 @@ function provisioning_start() {
 
     # Get licensed models if HF_TOKEN set & valid
     if provisioning_has_valid_hf_token; then
-        UNET_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors")
+        UNET_MODELS+=("https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q8_0.gguf")
         VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/ae.safetensors")
     else
-        UNET_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.safetensors")
+        UNET_MODELS+=("https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q8_0.gguf")
         VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors")
         sed -i 's/flux1-dev\.safetensors/flux1-schnell.safetensors/g' /opt/ComfyUI/web/scripts/defaultGraph.js
     fi
